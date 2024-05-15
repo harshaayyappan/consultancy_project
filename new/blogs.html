@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Column Layout</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --black: #000;
+            --yellow: #ffd700;
+            --yellow-dark: #cca300;
+            --background-color: #f4f4f4; /* Updated background color */
+        }
+
+        /* General Styling */
+        body {
+            background-color: var(--background-color); /* Set background color */
+        }
+
+        .heading {
+            margin-bottom: 3rem;
+            font-size: 3rem;
+            color: var(--black);
+            text-transform: capitalize;
+            padding-left: 1rem;
+            border-left: 1rem solid var(--yellow);
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Adjust the gap between images and videos */
+            background-color: rgb(243, 237, 156); /* Set background color for container */
+            padding: 20px; /* Add padding for better spacing */
+            border-radius: 8px; /* Add border radius for rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+        }
+
+        .column {
+            flex: 1; /* Each column takes up equal space */
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns */
+            gap: 20px; /* Adjust the gap between images */
+        }
+
+            .column img {
+                width: 100%; /* Ensure images fill their container */
+                height: auto; /* Allow images to adjust height proportionally */
+                display: block; /* Ensure proper layout */
+                max-width: 100%; /* Ensure images don't exceed their original size */
+                max-height: 200px; /* Set a fixed height for images */
+                object-fit: contain; /* Ensure images maintain aspect ratio */
+            }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            display: none; /* Initially hidden */
+            justify-content: center;
+            align-items: center;
+        }
+
+            .overlay img {
+                max-width: 90%;
+                max-height: 90%;
+            }
+
+            .overlay.active {
+                display: flex; /* Show overlay when active */
+            }
+
+        .download-button {
+            background-color: var(--yellow); /* Change button background color for better visibility */
+            color: white; /* Change button text color to white for better visibility */
+            border: none;
+            padding: 12px 24px; /* Increase padding for better button size */
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: bold; /* Make button text bold for better readability */
+            border-radius: 4px; /* Add some border radius for a more rounded button appearance */
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+            transition: background-color 0.3s ease; /* Add a smooth transition effect */
+        }
+
+            .download-button:hover {
+                background-color: var(--yellow-dark); /* Darken the background color on hover for better feedback */
+            }
+    </style>
+</head>
+<body>
+    <h1 class="heading">Homes</h1>
+    <div class="container">
+        <div class="column">
+            <img src="home1.jpg" alt="Image 1">
+            <img src="home2.jpg" alt="Image 2">
+            <img src="home3.jpg" alt="Image 3">
+            <img src="home4.jpg" alt="Image 4">
+            <img src="home5.jpg" alt="Image 5">
+            <img src="home6.jpg" alt="Image 6">
+        </div>
+        <!-- Include other column with videos here -->
+    </div>
+    <h1 class="heading">Sites</h1>
+    <div class="container">
+        <div class="column">
+            <img src="site.jpg" alt="Image 1">
+            <img src="site1.jpg" alt="Image 2">
+            <img src="site2.jpg" alt="Image 3">
+            <img src="site3.jpg" alt="Image 4">
+            <img src="site4.jpg" alt="Image 5">
+            <img src="site5.jpg" alt="Image 6">
+        </div>
+    </div>
+    <h1 class="heading">Videos</h1>
+    <div class="container">
+        <div class="column">
+
+            <video controls>
+                <source src="video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    <div class="container">
+        <div class="column">
+            <video controls>
+                <source src="video_3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+
+
+    <!-- Image Enlargement Overlay -->
+    <div class="overlay" id="overlay">
+        <img id="overlay-img" src="" alt="">
+        <button class="download-button" id="download-button">Download</button>
+    </div>
+
+    <script>const images = document.querySelectorAll('.column img');
+    const overlay = document.getElementById('overlay');
+    const overlayImg = document.getElementById('overlay-img');
+    const downloadButton = document.getElementById('download-button');
+
+    images.forEach(image => {
+        image.addEventListener('click', () => {
+            overlayImg.src = image.src;
+            overlay.classList.add('active');
+        });
+    });
+
+    overlay.addEventListener('click', () => {
+        overlay.classList.remove('active');
+    });
+
+    downloadButton.addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.href = overlayImg.src;
+        link.download = 'image';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });</script>
+</body>
+</html>

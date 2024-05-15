@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        width: 300px;
+        margin: 0 auto;
+        margin-top: 100px;
+        text-align: center;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+<script>
+    function validateForm() {
+        var adminId = document.getElementById("admin_id").value;
+        var password = document.getElementById("password").value;
+
+        // Check admin ID and password
+        if (adminId === "Ayyappan" && password === "123456") {
+            window.location.href = "file:///C:/projects/consultancy/Construction-Website/console.html";
+            return false; // Prevent form submission
+        } else {
+            alert("Invalid ID or password.");
+            return false; // Prevent form submission
+        }
+    }
+</script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Admin Login</h2>
+    <form onsubmit="return validateForm()">
+        <input type="text" id="admin_id" name="admin_id" placeholder="Admin ID" required><br>
+        <input type="password" id="password" name="password" placeholder="Password" required><br>
+        <input type="submit" value="Login">
+    </form>
+</div>
+
+</body>
+</html>
